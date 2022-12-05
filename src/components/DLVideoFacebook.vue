@@ -3,6 +3,7 @@
     @keypress:video="data = undefined"
     @click:download="run"
     class="mb-5"
+    placeholder="Dán liên kết Facebook vào đây"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">

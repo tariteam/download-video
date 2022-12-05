@@ -2,7 +2,7 @@
   <InputURL
     @keypress:video="data = undefined"
     @click:download="run"
-    class="mb-5"
+    class="mb-5" placeholder="Dán liên kết Twitter vào đây"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">

@@ -4,7 +4,7 @@
       v-model="url"
       standout="text-white"
       class="input w-full max-w-[607px]"
-      placeholder="Dán liên kết TikTok vào đây"
+      :placeholder="placeholder"
       @keypress="emit('keypress:input')"
     >
       <template v-slot:prepend>
@@ -36,6 +36,10 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
 import { ref } from "vue"
+
+defineProps<{
+  placeholder: string
+}>()
 
 const emit = defineEmits<{
   (name: "click:download", value: string): void
