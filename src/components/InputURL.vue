@@ -1,12 +1,16 @@
 <template>
-  <div class="flex md:flex-nowrap justify-center">
+  <form @submit.prevent="onSubmit" class="flex md:flex-nowrap justify-center">
     <q-input
       v-model="url"
       standout="text-white"
       class="input w-full max-w-[607px]"
       :placeholder="placeholder"
       type="url"
-      @keypress="emit('keypress:input')"
+      :rules="[
+        (v) => !!v || 'Yêu cầu nhập URL',
+        (v) => isWebUri(v) || 'URL không hợp lệ',
+      ]"
+      lazy-rules
     >
       <template v-slot:prepend>
         <Icon icon="humbleicons:link" width="20" height="20" />
@@ -27,7 +31,7 @@
     <q-btn
       class="bg-[#00be63] h-[48px] text-[18px] md:text-[16px] w-full md:w-auto mt-3 md:mt-0 md:ml-3 max-w-[607px]"
       no-caps
-      @click="emit('click:download', url)"
+      type="submit"
     >
       <Icon
         icon="fluent:arrow-download-24-filled"
@@ -36,16 +40,21 @@
       />
       Tải xuống
     </q-btn>
-  </div>
+  </form>
 </template>
 
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
-import { useQuasar } from "quasar";
-import { ref } from "vue"
+import { QBtn, QInput, useQuasar } from "quasar"
+import { useType } from "src/composibles/useType"
+import { isWebUri } from "src/logic/isWebUri"
+import { findTabFromUrl } from "src/pages/IndexPage.shared"
+import { ref, watch } from "vue"
+import { useRoute, useRouter } from "vue-router"
 
-defineProps<{
+const props = defineProps<{
   placeholder: string
+  type: string
 }>()
 
 const emit = defineEmits<{
@@ -53,8 +62,89 @@ const emit = defineEmits<{
   (name: "keypress:input"): void
 }>()
 const $q = useQuasar()
+const route = useRoute()
+const router = useRouter()
+const type = useType()
 
 const url = ref("")
+watch(
+  () => route.query.url,
+  (uri) => {
+
+    if (!uri) return
+    uri = uri.toString()
+
+    if (!isWebUri(uri)) return console.warn("url query is not url")
+
+    const typeUrl = findTabFromUrl(uri)?.name
+
+    if (!typeUrl) {
+      $q.notify({
+        position: "bottom-right",
+        message: "URL này không được hỗ trợ",
+      })
+      return
+    }
+
+    if (typeUrl !== props.type) {
+      if (!window.inited) {
+      window.inited = true
+      // redirect
+      router.replace({
+        ...route,
+        query: {
+          ...route.query,
+          type: typeUrl
+        },
+      })
+    }
+
+      return
+    }
+
+    window.inited = true
+    url.value = uri
+    if (route.query.autoDownload) onSubmit()
+  },
+  { immediate: true }
+)
+
+async function onSubmit() {
+  const typeUrl = findTabFromUrl(url.value)?.name
+
+  if (!typeUrl) {
+    $q.notify({
+      position: "bottom-right",
+      message: "URL này không được hỗ trợ",
+    })
+    return
+  }
+
+  if (typeUrl !== type.value) {
+    // redirect
+    await router.push({
+      ...route,
+      query: {
+        ...route.query,
+        type: typeUrl,
+        url: url.value,
+          autoDownload: true
+      },
+    })
+
+    return
+  }
+
+  router.push({
+    ...route,
+    query: {
+      ...route.query,
+      url: url.value,
+    },
+  })
+
+  emit("click:download", url.value)
+}
 
 async function pasteFromClipboard() {
   try {

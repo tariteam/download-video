@@ -1,15 +1,5 @@
 import { ref } from "vue"
 
-export const helperIsReady = ref(false)
-
-const interval = setInterval(() => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  helperIsReady.value = typeof (window as any).Http !== "undefined"
-  if (helperIsReady.value) clearInterval(interval)
-}, 1_000)
-
-setTimeout(() => clearInterval(interval), 30_000)
-
 interface GetOptions {
   url: string
   headers?: Record<string, string>
@@ -81,7 +71,7 @@ export const Http = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window as any).Http) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (window as any).Http.get(options) as ReturnType<
+      return (window as any).Http.post(options) as ReturnType<
         typeof HttpFake.post<T>
       >
     }

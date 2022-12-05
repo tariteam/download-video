@@ -2,6 +2,7 @@
   <InputURL
     @keypress:video="data = undefined"
     @click:download="run"
+    type="Twitter"
     class="mb-5" placeholder="Dán liên kết Twitter vào đây"
   />
 

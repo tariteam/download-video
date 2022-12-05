@@ -3,6 +3,7 @@
     @keypress:video="data = undefined"
     @click:download="run"
     class="mb-5"
+    type="Facebook"
     placeholder="Dán liên kết Facebook vào đây"
   />
 

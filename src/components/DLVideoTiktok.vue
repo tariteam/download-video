@@ -2,6 +2,7 @@
   <InputURL
     @keypress:video="data = undefined"
     @click:download="run"
+    type="TikTok"
     class="mb-5" placeholder="Dán liên kết TikTok vào đây"
   />
 

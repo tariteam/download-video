@@ -56,64 +56,31 @@
 
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
-import logoTiktok from "src/assets/tiktok-logo-4500.svg"
-import { defineAsyncComponent, ref } from "vue"
+import { QCard, QCardSection, QPage, QTab, QTabs } from "quasar";
+import { useType } from "src/composibles/useType";
+import { computed } from "vue"
+import { useRoute, useRouter } from "vue-router";
 
-const tab = ref("TikTok")
+import { tabs } from "./IndexPage.shared";
 
-const tabs = [
-  {
-    name: "TikTok",
-    icon: logoTiktok,
-    image: true,
-    color: "#25F4EE",
-    description: "Không logo, hình mờ, watermark",
-    hosts: ["tiktok.com"],
-    component: defineAsyncComponent(
-      () => import("components/DLVideoTiktok.vue")
-    ),
+const route = useRoute()
+const router = useRouter()
+const type = useType()
+
+const tab = computed<string>({
+  get() {
+    return type.value
   },
-  {
-    name: "Youtube",
-    icon: "logos:youtube-icon",
-    color: "#FF0000",
-    description: "Chuyển đổi không giới hạn và tải xuống miễn phí",
-    hosts: ["youtube.com"],
-    component: defineAsyncComponent(
-      () => import("components/DLVideoYoutube.vue")
-    ),
-  },
-  {
-    name: "Facebook",
-    icon: "logos:facebook",
-    color: "#1877F2",
-    description: "Tải video từ Facebook 1080 - 2K - 4K. Miễn Phí",
-    hosts: ["facebook.com", "fb.com"],
-    component: defineAsyncComponent(
-      () => import("components/DLVideoFacebook.vue")
-    ),
-  },
-  {
-    name: "Instagram",
-    icon: "logos:instagram-icon",
-    color: "#E1306C",
-    description: "Tải xuống Video, hình ảnh, Reels, IGTV Insta trực tuyến",
-    hosts: ["instagram.com"],
-    component: defineAsyncComponent(
-      () => import("components/DLVideoInstagram.vue")
-    ),
-  },
-  {
-    name: "Twitter",
-    icon: "logos:twitter",
-    color: "#55acee",
-    description: "Tải xuống video Twitter miễn phí",
-    hosts: ["twitter.com"],
-    component: defineAsyncComponent(
-      () => import("components/DLVideoTwitter.vue")
-    ),
-  },
-]
+  set(type) {
+    router.replace({
+      ...route,
+      query: {
+        ...route.query,
+        type
+      }
+    })
+  }
+})
 </script>
 
 <style lang="scss" scoped>

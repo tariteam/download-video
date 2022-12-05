@@ -3,6 +3,7 @@
     @keypress:video="data = undefined"
     @click:download="run"
     class="mb-5"
+    type="Instagram"
     placeholder="Dán liên kết Instagram vào đây"
   />
 

@@ -1,8 +1,13 @@
 <template>
+<template v-if="!systemStore.helperIsReady">
+<NotExistsExtension />
+</template>
+<template v-else>
   <InputURL
     @keypress:video="data = undefined"
     @click:download="run"
     class="mb-5"
+    type="YouTube"
     placeholder="Dán liên kết Youtube vào đây"
   />
 
@@ -113,6 +118,7 @@
       </div>
     </div>
   </template>
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -122,10 +128,11 @@ import { downloadFile } from "src/helpers/downloadFile"
 import { useDLVideoYoutube } from "stores/dlvideo-youtube"
 import { ref, shallowReactive } from "vue"
 import { useRequest } from "vue-request"
-
+import NotExistsExtension from "./NotExistsExtension.vue"
 import InputURL from "./InputURL.vue"
 
 const DLVideoStore = useDLVideoYoutube()
+const systemStore = useSystemStore()
 
 const { loading, error, run, data } = useRequest(DLVideoStore.start, {
   manual: true,

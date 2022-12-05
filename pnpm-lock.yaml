@@ -8,6 +8,7 @@ specifiers:
   '@quasar/quasar-app-extension-qmediaplayer': 2.0.0-beta.6
   '@tachibana-shin/eslint-config': ^1.0.7
   '@types/node': ^12.20.21
+  '@types/valid-url': ^1.0.3
   '@typescript-eslint/eslint-plugin': ^5.10.0
   '@typescript-eslint/parser': ^5.10.0
   '@vueuse/core': ^9.6.0
@@ -19,8 +20,11 @@ specifiers:
   pinia: ^2.0.11
   prettier: ^2.5.1
   quasar: ^2.6.0
-  sass: ^1.56.1
+  sass: 1.32.1
   typescript: ^4.5.4
+  ua-parser-js: ^1.0.32
+  valid-url: ^1.0.9
+  validator.js: ^2.0.4
   video.js: ^7.20.3
   vite-plugin-windicss: ^1.8.8
   vitest: ^0.25.3
@@ -37,6 +41,9 @@ dependencies:
   '@vueuse/core': 9.6.0_vue@3.2.45
   pinia: 2.0.27_mgnvym7yiazkylwwogi5r767ue
   quasar: 2.10.2
+  ua-parser-js: 1.0.32
+  valid-url: 1.0.9
+  validator.js: 2.0.4
   video.js: 7.20.3
   vue: 3.2.45
   vue-i18n: 9.2.2_vue@3.2.45
@@ -49,6 +56,7 @@ devDependencies:
   '@quasar/quasar-app-extension-qmediaplayer': 2.0.0-beta.6
   '@tachibana-shin/eslint-config': 1.0.7_s5ps7njkmjlaqajutnox5ntcla
   '@types/node': 12.20.55
+  '@types/valid-url': 1.0.3
   '@typescript-eslint/eslint-plugin': 5.45.0_yjegg5cyoezm3fzsmuszzhetym
   '@typescript-eslint/parser': 5.45.0_s5ps7njkmjlaqajutnox5ntcla
   autoprefixer: 10.4.13
@@ -57,10 +65,10 @@ devDependencies:
   eslint-plugin-vue: 9.8.0_eslint@8.29.0
   jsdom: 20.0.3
   prettier: 2.8.0
-  sass: 1.56.1
+  sass: 1.32.1
   typescript: 4.9.3
   vite-plugin-windicss: 1.8.8
-  vitest: 0.25.3_jsdom@20.0.3+sass@1.56.1
+  vitest: 0.25.3_jsdom@20.0.3+sass@1.32.1
   vue-tsc: 1.0.11_typescript@4.9.3
   windicss: 3.5.6
 
@@ -520,6 +528,10 @@ packages:
     dependencies:
       '@types/mime': 3.0.1
       '@types/node': 12.20.55
+    dev: true
+
+  /@types/valid-url/1.0.3:
+    resolution: {integrity: sha512-+33x29mg+ecU88ODdWpqaie2upIuRkhujVLA7TuJjM823cNMbeggfI6NhxewaRaRF8dy+g33e4uIg/m5Mb3xDQ==}
     dev: true
 
   /@types/web-bluetooth/0.0.16:
@@ -2848,10 +2860,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immutable/4.1.0:
-    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
-    dev: true
-
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3988,22 +3996,20 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass/1.32.12:
-    resolution: {integrity: sha512-zmXn03k3hN0KaiVTjohgkg98C3UowhL1/VSGdj4/VAAiMKGQOE80PFPxFP2Kyq0OUskPKcY5lImkhBKEHlypJA==}
+  /sass/1.32.1:
+    resolution: {integrity: sha512-SLhQ8do4vKsjIGMh1n6JPiARIFVOhBvdKPlZTNNOfwCIwKOc8EP+0QZlXI/ZWGy0W9KVO+54fVSbUZehXtECNQ==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
     dev: true
 
-  /sass/1.56.1:
-    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
-    engines: {node: '>=12.0.0'}
+  /sass/1.32.12:
+    resolution: {integrity: sha512-zmXn03k3hN0KaiVTjohgkg98C3UowhL1/VSGdj4/VAAiMKGQOE80PFPxFP2Kyq0OUskPKcY5lImkhBKEHlypJA==}
+    engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
-      immutable: 4.1.0
-      source-map-js: 1.0.2
     dev: true
 
   /sax/1.1.4:
@@ -4368,6 +4374,10 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
+  /ua-parser-js/1.0.32:
+    resolution: {integrity: sha512-dXVsz3M4j+5tTiovFVyVqssXBu5HM47//YSOeZ9fQkdDKkfzv2v3PP1jmH6FUyPW+yCSn7aBVK1fGGKNhowdDA==}
+    dev: false
+
   /uglify-js/3.17.4:
     resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
     engines: {node: '>=0.8.0'}
@@ -4438,6 +4448,14 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
     dev: true
+
+  /valid-url/1.0.9:
+    resolution: {integrity: sha512-QQDsV8OnSf5Uc30CKSwG9lnhMPe6exHtTXLRYX8uMwKENy640pU+2BgBL0LRbDh/eYRahNCS7aewCx0wf3NYVA==}
+    dev: false
+
+  /validator.js/2.0.4:
+    resolution: {integrity: sha512-6gknFyS1WrkXPlnpcb3hecx2LD4j8dEO+G9/yEJ3RYzUUtV4s3icO/IrAzTZtT9BHRSTNGRtg5JORIt+njMpIw==}
+    dev: false
 
   /vary/1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -4510,7 +4528,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.2.5_27bpzivew4ghcrnqvoo7q4uqnu:
+  /vite/3.2.5_yg2z4qjnbs7phqra4bzjzrjzc4:
     resolution: {integrity: sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -4540,12 +4558,12 @@ packages:
       postcss: 8.4.19
       resolve: 1.22.1
       rollup: 2.79.1
-      sass: 1.56.1
+      sass: 1.32.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.25.3_jsdom@20.0.3+sass@1.56.1:
+  /vitest/0.25.3_jsdom@20.0.3+sass@1.32.1:
     resolution: {integrity: sha512-/UzHfXIKsELZhL7OaM2xFlRF8HRZgAHtPctacvNK8H4vOcbJJAMEgbWNGSAK7Y9b1NBe5SeM7VTuz2RsTHFJJA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -4581,7 +4599,7 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 3.2.5_27bpzivew4ghcrnqvoo7q4uqnu
+      vite: 3.2.5_yg2z4qjnbs7phqra4bzjzrjzc4
     transitivePeerDependencies:
       - less
       - sass
