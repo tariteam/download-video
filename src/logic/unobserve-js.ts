@@ -1,8 +1,9 @@
 export function unObserveJs(ojs: string): HTMLDivElement {
-const { type, html } = new Function(`
+  // eslint-disable-next-line no-new-func
+  const { type, html } = new Function(`
 const Date = class { toString() { return 9e9 }}
 const window = { location: { hostname: "snapsave.app" }}
-const dom = {remove(){}}
+const dom = {remove(){},reset(){},classList:{remove(){},add(){}}}
 const document = {
   getElementById() {
     return dom
@@ -17,11 +18,11 @@ ${ojs}
 return { type, html: dom.innerHTML }
 `)()
 
-if (type.toLowerCase() !== "get_success")
-  throw new Error(type)
+  // eslint-disable-next-line functional/no-throw-statement
+  if (type.toLowerCase() !== "get_success") throw new Error(type)
 
-const div = document.createElement("div")
-div.innerHTML = html
+  const div = document.createElement("div")
+  div.innerHTML = html
 
-return div
+  return div
 }

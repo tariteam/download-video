@@ -1,21 +1,54 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia"
+import { Http } from "src/logic/http"
 
-export const useDLVideoTiktok = defineStore('dlvideo-tiktok', {
+export const useDLVideoTiktok = defineStore("dlvideo-tiktok", {
   actions: {
     async start(url: string) {
-      const headers = new Headers()
-      headers.set("x-requested-with", "https://www.tikwm.com")
+      return Http.get<{
+        code: number
+        msg: string
+        processed_time: number
+        data: {
+          id: string
+          region: string
+          title: string
+          cover: string
+          duration: number
+          play: string
+          wmplay: string
+          hdplay: string
+          music: string
+          music_info: {
+            id: string
+            title: string
+            play: string
+            author: string
+            original: boolean
+            duration: number
+            album: string
+          }
+          play_count: number
+          digg_count: number
+          comment_count: number
+          share_count: number
+          download_count: number
+          create_time: number
+          author: {
+            id: string
+            unique_id: string
+            nickname: string
+            avatar: string
+          }
+        }
+      }>({
+        url:
+          "https://www.tikwm.com/api/?count=12&cursor=&web=1&hd=1&url=" + url,
+      }).then((res) => {
+        // eslint-disable-next-line functional/no-throw-statement
+        if (res.data.code === -1) throw new Error(res.data.msg)
 
-      const res = await fetch(
-      "https://cors-anywhere.herokuapp.com/" +
-      "https://www.tikwm.com/api/?count=12&cursor=&web=1&hd=1&url=" +
-      url, {headers})
-      .then(res=>res.json())
-
-      if (res.code === -1)
-        throw new Error(res.msg)
-
-      return res
-    }
-  }
-});
+        return res.data
+      })
+    },
+  },
+})

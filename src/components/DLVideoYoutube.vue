@@ -1,5 +1,9 @@
 <template>
-  <InputURL @keypress:video="data = null" @click:download="run" class="mb-5" />
+  <InputURL
+    @keypress:video="data = undefined"
+    @click:download="run"
+    class="mb-5"
+  />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">
     <q-spinner-pie size="25px" class="mr-1" />
@@ -13,18 +17,30 @@
   <template v-else-if="data">
     <div class="flex flex-nowrap text-left">
       <div style="flex: 0">
-      <q-img width="257px" :src="data.thumb" />
+        <q-img width="257px" :src="data.thumb!" />
 
-        <h3 class="text-subtitle1 font-weight-medium line-clamp-2">{{ data.title }}</h3>
+        <h3 class="text-subtitle1 font-weight-medium line-clamp-2">
+          {{ data.title }}
+        </h3>
       </div>
 
       <div class="pl-2 w-full">
         <q-tabs v-model="tab" align="left" no-caps>
-          <q-tab v-for="item in tabs" :key="item.key" :name="item.key" :label="item.name" />
+          <q-tab
+            v-for="item in tabs"
+            :key="item.key"
+            :name="item.key"
+            :label="item.name"
+          />
         </q-tabs>
 
         <q-tab-panels v-model="tab" class="bg-transparent mt-1" animated>
-          <q-tab-panel v-for="item in tabs" :key="item.key" :name="item.key" class="px-0 py-0 overflow-hidden">
+          <q-tab-panel
+            v-for="item in tabs"
+            :key="item.key"
+            :name="item.key"
+            class="px-0 py-0 overflow-hidden"
+          >
             <table class="table w-full">
               <thead>
                 <tr>
@@ -34,31 +50,59 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in data[item.key]" :key="item.name">
-                  <td>{{ item.name }}<q-chip v-if="item.quality" rounded size="sm" color="blue" >{{ item.quality }}</q-chip>
+                <tr v-for="item2 in data[item.key]" :key="item2.name">
+                  <td>
+                    {{ item.name
+                    }}<q-chip
+                      v-if="item2.quality"
+                      rounded
+                      size="sm"
+                      color="blue"
+                      >{{ item2.quality }}</q-chip
+                    >
                   </td>
-                  <td>{{ item.textSize }}</td>
+                  <td>{{ item2.textSize }}</td>
                   <td>
                     <q-btn
                       no-caps
                       size="sm"
-                      rounded outline
-                      :loading="(stores.get(`${item.ftype}-${item.fquality}`)) === null"
-                      :color="stores.get(`${item.ftype}-${item.fquality}`) ?  `green-5` : `light-blue-5` "
-                      @click="download( data.k__id,  data. k_data_vid,item.ftype,item.fquality  )"
+                      rounded
+                      outline
+                      :loading="
+                        stores.get(`${item2.ftype}-${item2.fquality}`) === null
+                      "
+                      :color="
+                        stores.get(`${item2.ftype}-${item2.fquality}`)
+                          ? `green-5`
+                          : `light-blue-5`
+                      "
+                      @click="
+                        download(
+                          data!.k__id,
+                          data!.k_data_vid,
+                          item2.ftype,
+                          item2.fquality
+                        )
+                      "
                       class="min-h-[30px]"
                     >
-                    <span class="text-[14px]">
-                      <Icon v-if="stores.get(`${item.ftype}-${item.fquality}`)" icon="fluent:cloud-arrow-down-24-regular" width="20" height="20" />
-                      <template v-else>
-                      {{
-                      stores.get(`${item.ftype}-${item.fquality}`) === null ? "Get" : "Get"
-                      }}
-
-                      </template>
-                    </span>
-                    </q-btn
->
+                      <span class="text-[14px]">
+                        <Icon
+                          v-if="stores.get(`${item2.ftype}-${item2.fquality}`)"
+                          icon="fluent:cloud-arrow-down-24-regular"
+                          width="20"
+                          height="20"
+                        />
+                        <template v-else>
+                          {{
+                            stores.get(`${item2.ftype}-${item2.fquality}`) ===
+                            null
+                              ? "Get"
+                              : "Get"
+                          }}
+                        </template>
+                      </span>
+                    </q-btn>
                   </td>
                 </tr>
               </tbody>
@@ -67,86 +111,86 @@
         </q-tab-panels>
       </div>
     </div>
-
   </template>
 </template>
 
 <script lang="ts" setup>
-  import {
-    Icon
-  } from "@iconify/vue"
-  import {
-    useDLVideoYoutube
-  } from "stores/dlvideo-youtube"
-  import InputURL from "./InputURL.vue"
-  import {
-    useRequest
-  } from "vue-request"
-  import { ref, shallowReactive } from "vue"
+import { Icon } from "@iconify/vue"
+import { useQuasar } from "quasar"
 import { downloadFile } from "src/helpers/downloadFile"
+import { useDLVideoYoutube } from "stores/dlvideo-youtube"
+import { ref, shallowReactive } from "vue"
+import { useRequest } from "vue-request"
 
-  const DLVideoStore = useDLVideoYoutube()
+import InputURL from "./InputURL.vue"
 
-  const {
-    loading,
-    error,
-    run,
-    data
-  } = useRequest(DLVideoStore.start, {
-    manual: true
-  })
+const DLVideoStore = useDLVideoYoutube()
 
-  const tab = ref("mp4")
-  const tabs = [{
+const { loading, error, run, data } = useRequest(DLVideoStore.start, {
+  manual: true,
+})
+
+const tab = ref("mp4")
+const tabs: {
+  key: "mp4" | "mp3" | "audio"
+  name: string
+}[] = [
+  {
     key: "mp4",
     name: "Video",
-  }, {
+  },
+  {
     key: "mp3",
-    name: "MP3"
-  }, {
+    name: "MP3",
+  },
+  {
     key: "audio",
-    name: "Audio"
-  }]
-import { useQuasar } from "quasar"
+    name: "Audio",
+  },
+]
 
 const $q = useQuasar()
 
 const stores = shallowReactive(new Map<string, null | string>())
-let tmp: null | string
 /**
  * null: loading
  */
-  async function download(id : string, vId: string, type: string, quality: string) {
-    const uid = `${type}-${quality}`
+async function download(
+  id: string,
+  vId: string,
+  type: string,
+  quality: string
+) {
+  const uid = `${type}-${quality}`
 
-    const inStore = stores.get(uid)
+  const inStore = stores.get(uid)
 
-    if (inStore === null) return
-    if (inStore) {
-      downloadFile(inStore)
-      return
-    }
-
-    stores.set(uid, null)
-    try {
-      const url =  await DLVideoStore.getUrlDownload({ id, vId, type, quality })
-        stores.set(
-          uid,
-         url
-        )
-
-          downloadFile(url)
-     }catch (err) {
-       $q.notify({
-         position: "bottom-right",
-         message: err.message
-       })
-       stores.delete(uid)
-     }
-
-    //data. k_data_id, data.k__id, item.ftype, item.fquality
+  if (inStore === null) return
+  if (inStore) {
+    downloadFile(inStore)
+    return
   }
-</script>
 
+  stores.set(uid, null)
+  try {
+    const url = await DLVideoStore.getUrlDownload({ id, vId, type, quality })
+
+    // eslint-disable-next-line functional/no-throw-statement
+    if (!url) throw new Error("unknown_error_download_url")
+
+    stores.set(uid, url)
+
+    downloadFile(url)
+  } catch (err) {
+    $q.notify({
+      position: "bottom-right",
+      message: (err as Error).message,
+    })
+    stores.delete(uid)
+  }
+
+  // data. k_data_id, data.k__id, item.ftype, item.fquality
+}
+</script>
 
 <style lang="scss" scoped src="./table.scss" />

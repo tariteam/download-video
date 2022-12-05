@@ -1,8 +1,9 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia"
 import { covY2mate } from "src/logic/cov-y2mate"
 import { covY2mateConverter } from "src/logic/cov-y2mate-converter"
+import { Http } from "src/logic/http"
 
-export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
+export const useDLVideoYoutube = defineStore("dlvideo-youtube", {
   actions: {
     async start(url: string) {
       const headers = new Headers()
@@ -13,16 +14,22 @@ export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
       form.append("q_auto", "0")
       form.append("ajax", "1")
 
-      const { data: { status, result } } = await Http.post({
+      const {
+        data: { status, result },
+      } = await Http.post<{
+        status: string
+        result: string
+      }>({
         url: "https://www.y2mate.com/mates/en446/analyze/ajax",
         data: {
           url,
           q_auto: "0",
-          ajax: "1"
+          ajax: "1",
         },
-        responseType: "json"
+        responseType: "json",
       })
 
+      // eslint-disable-next-line functional/no-throw-statement
       if (status !== "success") throw new Error("error_unknown")
 
       return covY2mate(result)
@@ -32,8 +39,13 @@ export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
       vId: string
       type: string
       quality: string
-    }): Promise<string> {
-      const { data: { result, status } } = await Http.post({
+    }): Promise<string | undefined> {
+      const {
+        data: { result, status },
+      } = await Http.post<{
+        status: string
+        result: string
+      }>({
         url: "https://www.y2mate.com/mates/convert",
         data: {
           type: "youtube",
@@ -42,14 +54,15 @@ export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
           ajax: "1",
           token: "",
           ftype: options.type,
-          fquality: options.quality
+          fquality: options.quality,
         },
-        responseType: "json"
+        responseType: "json",
       })
-      
+
+      // eslint-disable-next-line functional/no-throw-statement
       if (status !== "success") throw new Error("error_unknown")
 
-      return covY2mateConverter(result)
-    }
-  }
-});
+      return covY2mateConverter(result) ?? undefined
+    },
+  },
+})
