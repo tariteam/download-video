@@ -32,5 +32,12 @@ export function covY2mate(html: string) {
     })
   )
 
-  return { title, thumb, mp4, mp3, audio }
+  const {k_data_vid, k__id } = new Function(`
+  ${div.querySelectorAll("script")[1].innerHTML}
+  return { k_data_vid, k__id }
+  `)()
+
+
+
+  return { title, thumb, mp4, mp3, audio, k_data_vid, k__id  }
 }

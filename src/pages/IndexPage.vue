@@ -1,6 +1,6 @@
 <template>
   <q-page class="px-[30px] sm:px-[60px]">
-    <q-card class="bg-c1 mx-auto max-w-[888px] mt-28 w-full rounded-xl text-center">
+    <q-card class="bg-c1 mx-auto max-w-[890px] mt-15 w-full rounded-xl text-center">
       <q-card-section>
         <h1 class="text-[24px] font-weight-medium mb-2">Công cụ tải video Tiktok</h1>
         <h2 class="text-subtitle1">Không logo, hình mờ, watermark</h2>
@@ -21,7 +21,7 @@
                 </q-tab>
               </q-tabs>
 
-              <div class="max-w-[612px] mx-auto mt-7">
+              <div class="max-w-[1024px] px-4 mx-auto mt-7">
 <keep-alive>
                 <Component :is="tabs.find(item => item.name === tab).component" />
 

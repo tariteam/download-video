@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { covY2mate } from "src/logic/cov-y2mate"
+import { covY2mateConverter } from "src/logic/cov-y2mate-converter"
 
 export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
   actions: {
@@ -11,12 +13,43 @@ export const useDLVideoYoutube = defineStore('dlvideo-youtube', {
       form.append("q_auto", "0")
       form.append("ajax", "1")
 
-      const res = await fetch("https://cors-anywhere.herokuapp.com/" + "https://www.y2mate.com/mates/en446/analyze/ajax", {
-        method: "post",
-        headers,
-        body: form
+      const { data: { status, result } } = await Http.post({
+        url: "https://www.y2mate.com/mates/en446/analyze/ajax",
+        data: {
+          url,
+          q_auto: "0",
+          ajax: "1"
+        },
+        responseType: "json"
       })
-      .then(res=>res.json())
+
+      if (status !== "success") throw new Error("error_unknown")
+
+      return covY2mate(result)
+    },
+    async getUrlDownload(options: {
+      id: string
+      vId: string
+      type: string
+      quality: string
+    }): Promise<string> {
+      const { data: { result, status } } = await Http.post({
+        url: "https://www.y2mate.com/mates/convert",
+        data: {
+          type: "youtube",
+          _id: options.id,
+          v_id: options.vId,
+          ajax: "1",
+          token: "",
+          ftype: options.type,
+          fquality: options.quality
+        },
+        responseType: "json"
+      })
+      
+      if (status !== "success") throw new Error("error_unknown")
+
+      return covY2mateConverter(result)
     }
   }
 });

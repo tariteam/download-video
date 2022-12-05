@@ -159,46 +159,5 @@ onBeforeUnmount(() => clearTimeout(timeout))
 </script>
 
 <style lang="scss" scoped>
-
-      .table {
-        // color: #363636
-        // border: 1px solid rgb(217 215 215 / 22%)
-      }
-
-      .table td,.table th {
-        border: 1px solid rgb(217 215 215 / 22%);
-        border-width: 0 0 1px;
-        padding: .5em .75em;
-        vertical-align: top
-      }
-
-      .table th {
-        // color: #363636
-      }
-
-      .table th:not([align]) {
-        text-align: inherit
-      }
-
-      .table thead {
-        background-color: transparent
-      }
-
-      .table thead td,.table thead th {
-        border-width: 0 0 2px;
-        // color: #363636
-      }
-
-      .table tbody {
-        background-color: transparent
-      }
-
-      .table tbody tr:last-child td,.table tbody tr:last-child th {
-        border-bottom-width: 0
-      }
-
-      .table.is-fullwidth {
-        width: 100%
-      }
-
+@import "./table.scss";
 </style>
