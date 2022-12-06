@@ -4,12 +4,12 @@
     @click:download="run"
     class="mb-5"
     type="Instagram"
-    placeholder="Dán liên kết Instagram vào đây"
+    :placeholder="t('dan-lien-ket-instagram-vao-day')"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">
     <q-spinner-pie size="25px" class="mr-1" />
-    Fetching...
+    {{ t("fetching") }}
   </div>
   <div v-else-if="error">
     <q-banner dense inline-actions class="text-white bg-red">
@@ -51,7 +51,7 @@
             height="1.5em"
             class="mr-1"
           />
-          Tải {{ item.name }}
+          {{ t("tai-item-name", [item.name]) }}
         </q-btn>
       </div>
     </div>
@@ -62,11 +62,13 @@
 import { Icon } from "@iconify/vue"
 import { downloadFile } from "src/helpers/downloadFile"
 import { useDLVideoSSYoutube } from "stores/dlvideo-ssyoutube"
+import { useI18n } from "vue-i18n"
 import { useRequest } from "vue-request"
 
 import InputURL from "./InputURL.vue"
 
 const DLVideoStore = useDLVideoSSYoutube()
+const { t } = useI18n()
 
 const { loading, error, run, data } = useRequest(DLVideoStore.start, {
   manual: true,

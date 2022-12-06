@@ -3,12 +3,13 @@
     @keypress:video="data = undefined"
     @click:download="run"
     type="TikTok"
-    class="mb-5" placeholder="Dán liên kết TikTok vào đây"
+    class="mb-5"
+    :placeholder="t('dan-lien-ket-tiktok-vao-day')"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">
     <q-spinner-pie size="25px" class="mr-1" />
-    Fetching...
+    {{ t("fetching") }}
   </div>
   <div v-else-if="error">
     <q-banner dense inline-actions class="text-white bg-red">
@@ -31,7 +32,12 @@
         <q-avatar size="1.5em" class="mr-1">
           <img :src="`https://tikwm.com${data.data.author.avatar}`" />
         </q-avatar>
-        {{ data.data.author.nickname }} (@{{ data.data.author.unique_id }})
+        {{
+          t("_name-at-_username", [
+            data.data.author.nickname,
+            data.data.author.unique_id,
+          ])
+        }}
       </div>
 
       <div class="flex text-left items-center text-[14px] mt-2">
@@ -46,7 +52,7 @@
           height="1.5em"
           class="mr-1"
         />
-        Tải xuống không logo
+        {{ t("tai-xuong-khong-logo") }}
       </q-btn>
       <q-btn no-caps rounded outline color="green-5" class="mr-2 mt-2">
         <Icon
@@ -55,7 +61,7 @@
           height="1.5em"
           class="mr-1"
         />
-        Tải xuống có logo
+        {{ t("tai-xuong-co-logo") }}
       </q-btn>
       <q-btn no-caps rounded outline color="light-blue-5" class="mr-2 mt-2">
         <Icon
@@ -64,7 +70,7 @@
           height="1.5em"
           class="mr-1"
         />
-        Tải xuống không logo HD
+        {{ t("tai-xuong-khong-logo-hd") }}
       </q-btn>
       <q-btn no-caps rounded outline color="orange-5" class="mr-2 mt-2">
         <Icon
@@ -73,7 +79,7 @@
           height="1.5em"
           class="mr-1"
         />
-        Tải xuống âm thanh
+        {{ t("tai-xuong-am-thanh") }}
       </q-btn>
     </div>
   </div>
@@ -82,9 +88,12 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
 import { useDLVideoTiktok } from "stores/dlvideo-tiktok"
+import { useI18n } from "vue-i18n"
 import { useRequest } from "vue-request"
 
 import InputURL from "./InputURL.vue"
+
+const { t } = useI18n()
 
 const DLVideoStore = useDLVideoTiktok()
 const { data, error, run, loading } = useRequest(DLVideoStore.start, {

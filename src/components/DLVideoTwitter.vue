@@ -3,12 +3,13 @@
     @keypress:video="data = undefined"
     @click:download="run"
     type="Twitter"
-    class="mb-5" placeholder="Dán liên kết Twitter vào đây"
+    class="mb-5"
+    :placeholder="t('dan-lien-ket-twitter-vao-day')"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">
     <q-spinner-pie size="25px" class="mr-1" />
-    Fetching...
+    {{ t("fetching") }}
   </div>
   <div v-else-if="error">
     <q-banner dense inline-actions class="text-white bg-red">
@@ -37,14 +38,14 @@
             :href="author.href"
             class="text-blue"
           >
-            @{{ author.username }}
+            {{ t("at-_username", [author.username]) }}
           </a>
         </h4>
 
         <q-list v-if="data.video_quality.length > 0">
           <q-item v-for="item in data.url" :key="item.name">
             <q-item-section>
-              <q-item-label>{{ item.subname }}p</q-item-label>
+              <q-item-label>{{ t("_quality-p", [item.subname]) }}</q-item-label>
               <q-item-label caption>{{ item.name }}</q-item-label>
             </q-item-section>
             <q-item-section side>
@@ -56,7 +57,7 @@
                 color="green-5"
                 class="mr-2 mt-2"
               >
-                Download
+                {{ t("download") }}
               </q-btn>
             </q-item-section>
           </q-item>
@@ -72,7 +73,7 @@
             color="green-5"
             class="mr-2 mt-2"
           >
-            Download {{ item.name }}
+            {{ t("download-item-name", [item.name]) }}
           </q-btn>
         </template>
       </div>
@@ -84,11 +85,13 @@
 import { downloadFile } from "src/helpers/downloadFile"
 import { useDLVideoSSYoutube } from "stores/dlvideo-ssyoutube"
 import { computed } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRequest } from "vue-request"
 
 import InputURL from "./InputURL.vue"
 
 const DLVideoStore = useDLVideoSSYoutube()
+const { t } = useI18n()
 
 const { loading, error, run, data } = useRequest(DLVideoStore.start, {
   manual: true,

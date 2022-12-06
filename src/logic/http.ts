@@ -1,5 +1,3 @@
-import { ref } from "vue"
-
 interface GetOptions {
   url: string
   headers?: Record<string, string>

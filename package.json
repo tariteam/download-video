@@ -6,20 +6,22 @@
   "author": "Tachibana Shin <45375496+tachibana-shin@users.noreply.github.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
+    "lint": "eslint --ext .js,.ts,.vue ./ --fix",
     "format": "pnpm check-format --write",
     "check-format": "prettier \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "vitest --run",
     "dev": "quasar dev",
     "typing": "vue-tsc --noEmit",
-    "ci": "pnpm check-format && pnpm lint && pnpm typing"
+    "ci": "pnpm format && pnpm lint && pnpm typing"
   },
   "dependencies": {
     "@iconify/vue": "^4.0.1",
     "@quasar/extras": "^1.0.0",
     "@vueuse/core": "^9.6.0",
+    "dayjs": "^1.11.7",
     "iso-639-1": "^2.1.15",
     "pinia": "^2.0.11",
+    "pinia-plugin-persistedstate": "^3.0.1",
     "quasar": "^2.6.0",
     "ua-parser-js": "^1.0.32",
     "valid-url": "^1.0.9",
@@ -36,6 +38,7 @@
     "@quasar/quasar-app-extension-qmediaplayer": "2.0.0-beta.6",
     "@tachibana-shin/eslint-config": "^1.0.7",
     "@types/node": "^12.20.21",
+    "@types/ua-parser-js": "^0.7.36",
     "@types/valid-url": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",

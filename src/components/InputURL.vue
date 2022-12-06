@@ -7,8 +7,8 @@
       :placeholder="placeholder"
       type="url"
       :rules="[
-        (v) => !!v || 'Yêu cầu nhập URL',
-        (v) => isWebUri(v) || 'URL không hợp lệ',
+        (v) => !!v || t('yeu-cau-nhap-url'),
+        (v) => isWebUri(v) || t('url-khong-hop-le'),
       ]"
       lazy-rules
     >
@@ -23,7 +23,7 @@
           @click="pasteFromClipboard"
         >
           <Icon icon="fluent:clipboard-24-filled" />
-          Dán
+          {{ t("dan") }}
         </q-btn>
       </template>
     </q-input>
@@ -38,7 +38,7 @@
         width="1.5em"
         height="1.5em"
       />
-      Tải xuống
+      {{ t("tai-xuong") }}
     </q-btn>
   </form>
 </template>
@@ -50,7 +50,10 @@ import { useType } from "src/composibles/useType"
 import { isWebUri } from "src/logic/isWebUri"
 import { findTabFromUrl } from "src/pages/IndexPage.shared"
 import { ref, watch } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
+
+const { t } = useI18n()
 
 const props = defineProps<{
   placeholder: string
@@ -70,7 +73,6 @@ const url = ref("")
 watch(
   () => route.query.url,
   (uri) => {
-
     if (!uri) return
     uri = uri.toString()
 
@@ -81,23 +83,23 @@ watch(
     if (!typeUrl) {
       $q.notify({
         position: "bottom-right",
-        message: "URL này không được hỗ trợ",
+        message: t("url-nay-khong-duoc-ho-tro"),
       })
       return
     }
 
     if (typeUrl !== props.type) {
       if (!window.inited) {
-      window.inited = true
-      // redirect
-      router.replace({
-        ...route,
-        query: {
-          ...route.query,
-          type: typeUrl
-        },
-      })
-    }
+        window.inited = true
+        // redirect
+        router.replace({
+          ...route,
+          query: {
+            ...route.query,
+            type: typeUrl,
+          },
+        })
+      }
 
       return
     }
@@ -115,7 +117,7 @@ async function onSubmit() {
   if (!typeUrl) {
     $q.notify({
       position: "bottom-right",
-      message: "URL này không được hỗ trợ",
+      message: t("url-nay-khong-duoc-ho-tro"),
     })
     return
   }
@@ -128,7 +130,7 @@ async function onSubmit() {
         ...route.query,
         type: typeUrl,
         url: url.value,
-          autoDownload: true
+        autoDownload: "true",
       },
     })
 
@@ -149,18 +151,20 @@ async function onSubmit() {
 async function pasteFromClipboard() {
   try {
     const permission = await navigator.permissions.query({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       name: "clipboard-read",
     })
     if (permission.state === "denied") {
       // eslint-disable-next-line functional/no-throw-statement
-      throw new Error("Not allowed to read clipboard.")
+      throw new Error(t("khong-duoc-phep-doc-clipboard"))
     }
     const clipboardContents = await navigator.clipboard.read()
 
     for (const item of clipboardContents) {
       if (!item.types.includes("text/plain")) {
         // eslint-disable-next-line functional/no-throw-statement
-        throw new Error("Clipboard contains URL data.")
+        throw new Error(t("clipboard-khong-chua-du-lieu-url"))
       }
       const blob = await item.getType("text/plain")
 

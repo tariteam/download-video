@@ -4,12 +4,12 @@
     @click:download="run"
     class="mb-5"
     type="Facebook"
-    placeholder="Dán liên kết Facebook vào đây"
+    :placeholder="t('dan-lien-ket-facebook-vao-day')"
   />
 
   <div v-if="loading" class="text-[16px] font-weight-medium py-5">
     <q-spinner-pie size="25px" class="mr-1" />
-    Fetching...
+    {{ t("fetching") }}
   </div>
   <div v-else-if="error">
     <q-banner dense inline-actions class="text-white bg-red">
@@ -36,9 +36,9 @@
     <table class="w-full table">
       <thead>
         <tr>
-          <th>Qualitty</th>
-          <th>Render</th>
-          <th>Download</th>
+          <th>{{ t("chat-luong") }}</th>
+          <th>{{ t("ket-xuat") }}</th>
+          <th>{{ t("tai-xuong") }}</th>
         </tr>
       </thead>
       <tbody>
@@ -63,14 +63,14 @@
             >
               <span class="text-[14px]">{{
                 render && progress.get(url)?.progress !== 100
-                  ? "Render"
-                  : "Dowload"
+                  ? t("render")
+                  : t("dowload")
               }}</span>
               <template #loading>
                 <q-spinner />
-                <span class="ml-[3px] mr-[-9px] mb-[0.1em] text-[13px]"
-                  >{{ progress.get(url)?.progress ?? 0 }}%</span
-                >
+                <span class="ml-[3px] mr-[-9px] mb-[0.1em] text-[13px]">{{
+                  t("_progress-per", [progress.get(url)?.progress ?? 0])
+                }}</span>
               </template>
             </q-btn>
           </td>
@@ -84,11 +84,13 @@
 import { downloadFile } from "src/helpers/downloadFile"
 import { useDLVideoFacebook } from "stores/dlvideo-facebook"
 import { onBeforeUnmount, ref, shallowReactive, watch } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRequest } from "vue-request"
 
 import InputURL from "./InputURL.vue"
 
 const DLVideoStore = useDLVideoFacebook()
+const { t } = useI18n()
 
 const { loading, error, run, data } = useRequest(DLVideoStore.start, {
   manual: true,

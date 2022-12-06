@@ -1,49 +1,56 @@
 <template>
   <div class="text-center">
-      <h3 class="text-[24px] mt-10">
-        Cần cài đặt Extension trợ giúp
-      </h3>
-      <p class="text-[14px] mt-3 text-gray-400 leading-normal">
-        Tính năng này yêu cầu extension AnimeVsub Helper để hoạt động
-        <br />
-        Extension AnimeVsub Helper là cầu nối quan trọng để ứng dụng gửi các yêu cầu tới máy chủ
-        <br />
-        <q-btn
-          no-caps
-          color="green-5"
-          outline
-          rounded
-          class="mt-4"
-          target="_blank"
-          :href="currentBrowser.href"
-        >
-          <Icon
-            :icon="currentBrowser.icon"
-            width="35"
-            height="35"
-            class="mr-1 my-1"
-          />
-          Cài đặt extension AnimeVsub Helper cho {{ currentBrowser.text }}
-        </q-btn>
-      </p>
+    <h3 class="text-[24px] mt-10">
+      {{ t("can-cai-dat-extension-tro-giup") }}
+    </h3>
+    <p class="text-[14px] mt-3 text-gray-400 leading-normal">
+      {{ t("tinh-nang-nay-yeu-cau-extension-animevsub-helper-de-hoat-dong") }}
+      <br />
+      {{
+        t(
+          "extension-animevsub-helper-la-cau-noi-quan-trong-de-ung-dung-gui-cac-yeu-cau-toi-may-chu"
+        )
+      }}
+      <br />
+      <q-btn
+        no-caps
+        color="green-5"
+        outline
+        rounded
+        class="mt-4"
+        target="_blank"
+        :href="currentBrowser.href"
+      >
+        <Icon
+          :icon="currentBrowser.icon"
+          width="35"
+          height="35"
+          class="mr-1 my-1"
+        />
+        {{
+          t("cai-dat-extension-animevsub-helper-cho-currentbrowser-text", [
+            currentBrowser.text,
+          ])
+        }}
+      </q-btn>
+    </p>
 
-      <div class="mt-5 children:px-3">
-        <q-btn
-          rounded
-          stack
-          flat
-          no-caps
-          v-for="{ icon, text } in browsers"
-          :key="text"
-        >
-          <Icon :icon="icon" width="55" height="55" />
-          <span class="mt-[5px] text-white text-[16px] text-weight-regular">{{
-            text
-          }}</span>
-        </q-btn>
-      </div>
-      <!-- <img src="~assets/ic_question_exit.png" width="278" /> -->
-
+    <div class="mt-5 children:px-3">
+      <q-btn
+        rounded
+        stack
+        flat
+        no-caps
+        v-for="{ icon, text } in browsers"
+        :key="text"
+      >
+        <Icon :icon="icon" width="55" height="55" />
+        <span class="mt-[5px] text-white text-[16px] text-weight-regular">{{
+          text
+        }}</span>
+      </q-btn>
+    </div>
+    <!-- <img src="~assets/ic_question_exit.png" width="278" /> -->
   </div>
 </template>
 
@@ -53,6 +60,7 @@ import UAParser from "ua-parser-js"
 import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 
 const browsers = [
   {
