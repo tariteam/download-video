@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import  { ref } from "vue"
+import { getNavigatorLanguage } from "src/i18n"
 
 export const useSystemStore = defineStore('system',() => {
-  
+
  const helperIsReady = ref(false)
 
 const interval = setInterval(() => {
@@ -13,5 +14,7 @@ const interval = setInterval(() => {
 
 setTimeout(() => clearInterval(interval), 30_000)
 
-return { helperIsReady }
+
+const locale = ref( getNavigatorLanguage() )
+return { helperIsReady, locale }
 })

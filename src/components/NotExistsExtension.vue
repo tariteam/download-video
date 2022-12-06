@@ -10,7 +10,7 @@
         <br />
         <q-btn
           no-caps
-          color="main"
+          color="green-5"
           outline
           rounded
           class="mt-4"
@@ -23,8 +23,7 @@
             height="35"
             class="mr-1 my-1"
           />
-          {{ t("cai-dat-extension-animevsub-helper") }}
-          {{ t("cho") }} {{ currentBrowser.text }}
+          Cài đặt extension AnimeVsub Helper cho {{ currentBrowser.text }}
         </q-btn>
       </p>
 
@@ -32,6 +31,7 @@
         <q-btn
           rounded
           stack
+          flat
           no-caps
           v-for="{ icon, text } in browsers"
           :key="text"
@@ -43,7 +43,7 @@
         </q-btn>
       </div>
       <!-- <img src="~assets/ic_question_exit.png" width="278" /> -->
-    </div>
+
   </div>
 </template>
 

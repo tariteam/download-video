@@ -1,17 +1,26 @@
 // app global css in SCSS form
+body {
+  --c-c1: #fff;
+  --c-c2: #d8d8d8;
+  &.body--dark {
+    --c-c1: #202b39; // #fff
+    --c-c2: #0c1625; // #d8d8d8
+  }
+}
+
 
 .text-c1 {
-  color: #202b39;
+  color: var(--c-c1);
 }
 .bg-c1 {
-  background-color: #202b39;
+  background-color: var(--c-c1) !important;
 }
 
 .text-c2 {
-  color: #0c1625;
+  color: var(--c-c2)
 }
 .bg-c2 {
-  background-color: #0c1625;
+  background-color: var(--c-c2) !important;
 }
 
 .text-link {
