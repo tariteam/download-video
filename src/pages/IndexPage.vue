@@ -443,13 +443,13 @@ const questions = [
   {
     title: t("cach-tai-ve-may-tinh-nhu-the-nao"),
     content: t(
-      "tren-may-tinh-chi-can-sao-chep-lien-ket-cua-video-va-dan-no-vao-hop-nhap-lien-ket-duoc-cung-cap-o-dau-trang-nay-va-nhan-nut-tai-xuong-la-xong-xem-them-huong-dan-su-dung-snapsave-huong-dan-su-dung-snapsave-de-tai-video"
+      "tren-may-tinh-chi-can-sao-chep-lien-ket-cua-video-va-dan-no-vao-hop-nhap-lien-ket-duoc-cung-cap-o-dau-trang-nay-va-nhan-nut-tai-xuong-la-xong-xem-them-huong-dan-su-dung-dlvideo-huong-dan-su-dung-dlvideo-de-tai-video"
     ),
   },
   {
     title: t("lam-the-nao-de-tai-ve-android"),
     content: t(
-      "cung-giong-nhu-tai-video-tren-fb-tu-may-tinh-rat-don-gian-hay-truy-cap-snapsave-app-greater-than-nhap-link-video-greater-than-va-bam-download-greater-than-chon-chat-luong-ban-muon-tai-ve-ho-tro-den-video-4k"
+      "cung-giong-nhu-tai-video-tren-fb-tu-may-tinh-rat-don-gian-hay-truy-cap-dlvideo-app-greater-than-nhap-link-video-greater-than-va-bam-download-greater-than-chon-chat-luong-ban-muon-tai-ve-ho-tro-den-video-4k"
     ),
   },
   {

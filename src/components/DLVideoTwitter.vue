@@ -38,7 +38,7 @@
             :href="author.href"
             class="text-blue"
           >
-            {{ t("at-_username", [author.username]) }}
+            @{{ author.username }}
           </a>
         </h4>
 

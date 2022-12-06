@@ -32,12 +32,7 @@
         <q-avatar size="1.5em" class="mr-1">
           <img :src="`https://tikwm.com${data.data.author.avatar}`" />
         </q-avatar>
-        {{
-          t("_name-at-_username", [
-            data.data.author.nickname,
-            data.data.author.unique_id,
-          ])
-        }}
+        {{ data.data.author.nickname }} (@{{ data.data.author.unique_id }})
       </div>
 
       <div class="flex text-left items-center text-[14px] mt-2">
