@@ -15,7 +15,7 @@ interface Response<T> {
 
 class HttpFake {
   static get<T>(options: GetOptions): Promise<Response<T>> {
-    return fetch(options.url, {
+    return fetch("https://thingproxy.freeboard.io/fetch/" + options.url, {
       headers: options.headers,
     }).then(async (res) => {
       const data =
@@ -36,7 +36,7 @@ class HttpFake {
       form.append(key, value)
     )
 
-    return fetch(options.url, {
+    return fetch("https://thingproxy.freeboard.io/fetch/" + options.url, {
       method: "post",
       headers: options.headers,
       body: form,

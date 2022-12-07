@@ -65,7 +65,7 @@
       </div>
 
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
             <Icon
               icon="file-icons:easybuild"
@@ -86,7 +86,7 @@
         </q-card>
       </div>
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
             <Icon
               icon="fluent:clock-24-regular"
@@ -107,7 +107,7 @@
         </q-card>
       </div>
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
             <Icon
               icon="fluent:money-off-24-regular"
@@ -142,15 +142,9 @@
       </div>
 
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
-            <q-responsive :ratio="328 / 237">
-              <video
-                src="https://snapsave.app/vn/media/copy-and-paste.mp4"
-                muted
-                loop
-              />
-            </q-responsive>
+                       <q-img :ratio="216/110"  src="~assets/step-1.jpeg" />
             <div class="text-[20px] mb-3 font-weight-medium">
               <span
                 class="inline-block w-[30px] h-[36px] text-[20px] text-green-400"
@@ -161,24 +155,18 @@
             <div class="">
               {{
                 t(
-                  "ao-chep-lien-ket-cua-video-ma-ban-muon-tai-xuong-sau-do-dan-vao-o-nhap-lieu-vao-snapsave"
+                  "sao-chep-lien-ket-cua-video-ma-ban-muon-tai-xuong-sau-do-dan-vao-o-nhap-lieu-vao-dlvideo"
                 )
               }}
             </div>
           </q-card-section>
         </q-card>
       </div>
-      S
+
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
-            <q-responsive :ratio="328 / 237">
-              <video
-                src="https://snapsave.app/vn/media/copy-and-paste.mp4"
-                muted
-                loop
-              />
-            </q-responsive>
+              <q-img :ratio="216/110" src="~assets/step-3.jpeg" />
             <div class="text-[20px] mb-3 font-weight-medium">
               <span
                 class="inline-block w-[30px] h-[36px] text-[20px] text-green-400"
@@ -191,15 +179,9 @@
         </q-card>
       </div>
       <div class="col-12 sm:col-4 px-3 md:px-5 py-12">
-        <q-card class="col-12 sm:col-4 px-2 py-2 !bg-[#202b39] bg-opacity-72">
+        <q-card class="h-full px-2 py-2 !bg-[#202b39] bg-opacity-72">
           <q-card-section>
-            <q-responsive :ratio="328 / 237">
-              <video
-                src="https://snapsave.app/vn/media/copy-and-paste.mp4"
-                muted
-                loop
-              />
-            </q-responsive>
+                        <q-img :ratio="216/110" src="~assets/step-3.jpeg" />
             <div class="text-[20px] mb-3 font-weight-medium">
               <span
                 class="inline-block w-[30px] h-[36px] text-[20px] text-green-400"

@@ -43,6 +43,7 @@ export const useDLVideoTiktok = defineStore("dlvideo-tiktok", {
       }>({
         url:
           "https://www.tikwm.com/api/?count=12&cursor=&web=1&hd=1&url=" + url,
+        responseType: "json"
       }).then((res) => {
         // eslint-disable-next-line functional/no-throw-statement
         if (res.data.code === -1) throw new Error(res.data.msg)

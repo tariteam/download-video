@@ -25,3 +25,12 @@ body {
 .text-link {
   color: #0075ff;
 }
+
+
+
+@media (min-width: 600px) {
+  .sm\:col-4 {
+    width: (100% / 12 * 4) !important;
+    min-width: 0;
+  }
+}
