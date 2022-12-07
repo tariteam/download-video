@@ -1,6 +1,19 @@
 # Video Downloader (download-video)
 
-A Quasar Project
+Download video no logo, ads from TikTok, Youtube, Facebook, Instagram, Twitter
+
+[![CodeQL](https://github.com/tachibana-shin/download-video/actions/workflows/codeql.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/codeql.yml)
+[![ESLint](https://github.com/tachibana-shin/download-video/actions/workflows/eslint.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/eslint.yml)
+[![Prettier](https://github.com/tachibana-shin/download-video/actions/workflows/pretter.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/pretter.yml)
+[![Release](https://github.com/tachibana-shin/download-video/actions/workflows/release.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/release.yml)
+[![Test](https://github.com/tachibana-shin/download-video/actions/workflows/test.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/test.yml)
+[![Try build](https://github.com/tachibana-shin/download-video/actions/workflows/try-build.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/try-build.yml)
+[![TypeScript Checker Declaration](https://github.com/tachibana-shin/download-video/actions/workflows/typing.yml/badge.svg)](https://github.com/tachibana-shin/download-video/actions/workflows/typing.yml)
+
+
+## Tobe on
+- [x] web version
+- [ ] apk app for android
 
 ## Install the dependencies
 
