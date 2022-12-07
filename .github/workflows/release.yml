@@ -49,13 +49,11 @@ jobs:
       - name: Install depends
         run: pnpm i
 
+      - name: Build
+        run: pnpm build
+        
       - name: Test
         run: pnpm test
-
-      - name: Push to branch `release`
-        run: |
-          git branch release -f
-          git push origin release -f
 
       - name: Generate changelog
         id: changelog
@@ -74,3 +72,10 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
+
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
