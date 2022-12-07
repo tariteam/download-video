@@ -1,0 +1,1 @@
+import{d as s}from"./index.5edad22b.js";import{H as e}from"./InputURL.9a0eda44.js";const u=s("dlvideo-ssyoutube",{actions:{async start(t){return e.post({url:"https://ssyoutube.com/api/convert",data:{url:t},responseType:"json"}).then(o=>o.data)}}});export{u};
