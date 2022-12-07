@@ -74,6 +74,7 @@ module.exports = configure(function (/* ctx */) {
 
       extendViteConf(viteConf) {
         extend(true, viteConf, {
+          base: "./",
           server: {
             // configure vite for HMR with Gitpod
             hmr: process.env.GITPOD_WORKSPACE_URL
