@@ -13,7 +13,8 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "typing": "vue-tsc --noEmit",
-    "ci": "pnpm format && pnpm lint && pnpm typing"
+    "ci": "pnpm format && pnpm lint && pnpm typing",
+    "release": "bumpp package.json --commit --tag --push"
   },
   "dependencies": {
     "@iconify/vue": "^4.0.1",
@@ -44,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "autoprefixer": "^10.4.2",
+    "bumpp": "^8.2.1",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
